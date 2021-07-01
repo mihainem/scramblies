@@ -1,7 +1,27 @@
 (ns ui.core
+  (:require-macros [cljs.core.async.macros :refer [go]])
     (:require
-      [reagent.core :as r :refer [atom]]
-      [reagent.dom :as d]))
+     [reagent.core :as r :refer [atom]]
+     [reagent.dom :as d]
+     [cljs-http.client :as http]
+     [cljs.core.async :refer [<!]]
+     ))
+
+
+;;{:with-credentials? false
+   ;;:query-params {"since" 135}}
+(defn handle-request
+  [letters word]
+  (go (let [response (<! (http/get (str "http://localhost:8888/scramble/" letters "/" word)))]
+        response
+        ;;(prn (map :login (:body response)))
+        ))
+  (go (let [response (<! (http/get (str "http://localhost:8888/scramble/" letters "/" word)
+                                   {:with-credentials? false
+                                    :query-params {}}))]
+        (prn (:status response))
+        (prn response))))
+
 
 (defn scramblies-form []
   (let [letters (r/atom "")
@@ -20,9 +40,12 @@
        [:br]
        [:input {:type "button"
                 :value "Scramblie?"
-                :on-click (fn [] (println @word))
+                :on-click (fn [] (js/alert (str (handle-request @letters @word))))
                 ;;:on-change (fn [e] (reset! word (.-value (.-target e))))
                 }]])))
+
+
+
 ;; -------------------------
 ;; Views
 
