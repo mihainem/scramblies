@@ -1,12 +1,21 @@
 (ns ui.core
   (:require-macros [cljs.core.async.macros :refer [go]])
     (:require
+     [clojure.string :as str]
      [reagent.core :as r :refer [atom]]
      [reagent.dom :as d]
      [cljs-http.client :as http]
      [cljs.core.async :refer [<!]]
      ))
 
+
+(defn scramble?
+  [scramblies word]
+  (if (and (> (count word) 0)
+           (str/includes? scramblies (str (first word))))
+    (recur (str/replace-first scramblies (first word) "")
+           (str/replace-first word (str (first word)) ""))
+    (= (count word) 0)))
 
 ;;{:with-credentials? false
    ;;:query-params {"since" 135}}
@@ -40,8 +49,14 @@
        [:br]
        [:input {:type "button"
                 :value "Scramblie?"
-                :on-click (fn [] (js/alert (str (handle-request @letters @word))))
+                :on-click (fn [] (js/alert (str (scramble? @letters @word))
+                                 ;; (str (handle-request @letters @word))
+                                           ))
                 ;;:on-change (fn [e] (reset! word (.-value (.-target e))))
+                }]
+       [:p {:type "button"
+                :value "Scramblie?"
+              
                 }]])))
 
 
