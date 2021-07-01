@@ -1,12 +1,11 @@
 (ns ui.core
   (:require-macros [cljs.core.async.macros :refer [go]])
-    (:require
-     [clojure.string :as str]
-     [reagent.core :as r :refer [atom]]
-     [reagent.dom :as d]
-     [cljs-http.client :as http]
-     [cljs.core.async :refer [<!]]
-     ))
+  (:require
+   [clojure.string :as str]
+   [reagent.core :as r :refer [atom]]
+   [reagent.dom :as d]
+   [cljs-http.client :as http]
+   [cljs.core.async :refer [<!]]))
 
 
 (defn scramble?
@@ -17,14 +16,11 @@
            (str/replace-first word (str (first word)) ""))
     (= (count word) 0)))
 
-;;{:with-credentials? false
-   ;;:query-params {"since" 135}}
+
 (defn handle-request
   [letters word]
   (go (let [response (<! (http/get (str "http://localhost:8888/scramble/" letters "/" word)))]
-        response
-        ;;(prn (map :login (:body response)))
-        ))
+        response))
   (go (let [response (<! (http/get (str "http://localhost:8888/scramble/" letters "/" word)
                                    {:with-credentials? false
                                     :query-params {}}))]
@@ -49,15 +45,10 @@
        [:br]
        [:input {:type "button"
                 :value "Scramblie?"
-                :on-click (fn [] (js/alert (str (scramble? @letters @word))
-                                 ;; (str (handle-request @letters @word))
-                                           ))
-                ;;:on-change (fn [e] (reset! word (.-value (.-target e))))
-                }]
+                :on-click (do (fn [] (js/alert (str (scramble? @letters @word)))
+                                (handle-request @letters @word)))}]
        [:p {:type "button"
-                :value "Scramblie?"
-              
-                }]])))
+            :value "Scramblie?"}]])))
 
 
 
@@ -66,7 +57,7 @@
 
 (defn home-page []
   [:div [:h2 "Is your word hidding in the scramblies ?"]
-    [scramblies-form]])
+   [scramblies-form]])
 
 ;; -------------------------
 ;; Initialize app

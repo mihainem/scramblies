@@ -215,7 +215,9 @@ return cljs.core.reset_BANG_(letters,p1__26903_SHARP_.target.value);
 })], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input","input",556931961),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref(word),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Add word",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (e){
 return cljs.core.reset_BANG_(word,e.target.value);
 })], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input","input",556931961),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"value","value",305978217),"Scramblie?",new cljs.core.Keyword(null,"on-click","on-click",1632826543),(function (){
-return alert(cljs.core.str.cljs$core$IFn$_invoke$arity$1(ui.core.scramble_QMARK_(cljs.core.deref(letters),cljs.core.deref(word))));
+alert(cljs.core.str.cljs$core$IFn$_invoke$arity$1(ui.core.scramble_QMARK_(cljs.core.deref(letters),cljs.core.deref(word))));
+
+return ui.core.handle_request(cljs.core.deref(letters),cljs.core.deref(word));
 })], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"value","value",305978217),"Scramblie?"], null)], null)], null);
 });
 });
